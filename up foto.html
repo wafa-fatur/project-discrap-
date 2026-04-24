@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Memory Box | DiScrap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .font-handwriting { font-family: 'Caveat', cursive; }
+        
+        /* Frame Polaroid yang lebih premium */
+        .polaroid-frame {
+            background: white;
+            padding: 18px 18px 70px 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            position: relative;
+            transform: rotate(-1deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .polaroid-frame:hover {
+            transform: rotate(0deg);
+        }
+        
+        #drawing-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: url('https://img.icons8.com/ios-filled/24/000000/pen.png'), crosshair;
+            z-index: 10;
+        }
+
+        /* Filter Lofi Warm & Grain */
+        .lofi-filter {
+            filter: sepia(0.15) contrast(1.05) brightness(1.05);
+            position: relative;
+        }
+
+        .grain-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body class="text-gray-800 pb-20">
+
+    <nav class="p-8 max-w-7xl mx-auto flex justify-between items-center">
+        <a href="index.html" class="text-lg font-semibold text-gray-400 hover:text-sky-500 transition">← Batal</a>
+        <h1 class="text-3xl font-handwriting font-bold text-sky-600">The Memory Box</h1>
+        <div class="w-10"></div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 grid lg:grid-cols-5 gap-12 items-start">
+        
+        <div class="lg:col-span-2 space-y-8">
+            <section>
+                <h3 class="text-xl font-handwriting text-sky-600 mb-4 text-2xl">Langkah 1: Pilih Foto</h3>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                    <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-50 transition">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg class="w-8 h-8 mb-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                            <p class="text-sm text-slate-500 uppercase tracking-tighter font-bold">Klik untuk Unggah</p>
+                        </div>
+                        <input type="file" id="imageInput" accept="image/*" class="hidden" />
+                    </label>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-xl font-handwriting text-sky-600 mb-4 text-2xl">Langkah 2: Beri Sentuhan Personal</h3>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+                    <p class="text-sm text-slate-400 leading-relaxed">Gunakan mouse atau pen-mu untuk menuliskan nama, tanggal, atau coretan indah di atas foto.</p>
+                    
+                    <div class="flex items-center gap-4">
+                        <button id="clearCanvas" class="flex-1 py-3 text-sm font-bold text-red-400 border border-red-500/20 rounded-xl hover:bg-red-50 transition">
+                            Hapus Coretan
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="lg:col-span-3 flex flex-col items-center">
+            <div id="polaroid-container" class="polaroid-frame w-full max-w-[450px]">
+                <div id="photo-preview" class="relative aspect-square bg-slate-50 overflow-hidden">
+                    <div id="placeholder-ui" class="absolute inset-0 flex items-center justify-center">
+                        <span class="font-handwriting text-2xl text-slate-300">Foto akan muncul di sini...</span>
+                    </div>
+                    
+                    <img id="main-photo" class="hidden w-full h-full object-cover lofi-filter" />
+                    <div id="grain" class="grain-overlay hidden"></div>
+                    
+                    <canvas id="drawing-canvas"></canvas>
+                </div>
+                
+                <div class="mt-8">
+                    <input type="text" placeholder="Tuliskan judul momen ini..." 
+                        class="w-full border-none focus:ring-0 text-center font-handwriting text-4xl text-slate-700 placeholder-slate-200 bg-transparent">
+                </div>
+            </div>
+
+            <button class="mt-12 bg-slate-900 text-white px-12 py-4 rounded-full font-bold shadow-2xl hover:bg-sky-500 transition-all duration-300 transform hover:scale-105 active:scale-95">
+                Simpan ke Koleksi 🎞️
+            </button>
+        </div>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('drawing-canvas');
+        const ctx = canvas.getContext('2d');
+        const photoPreview = document.getElementById('photo-preview');
+        const imageInput = document.getElementById('imageInput');
+        const mainPhoto = document.getElementById('main-photo');
+        const grain = document.getElementById('grain');
+        const placeholderUi = document.getElementById('placeholder-ui');
+
+        function initCanvas() {
+            canvas.width = photoPreview.offsetWidth;
+            canvas.height = photoPreview.offsetHeight;
+            ctx.strokeStyle = "#334155"; // Warna tinta Slate 700
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+        }
+
+        window.addEventListener('load', initCanvas);
+        window.addEventListener('resize', initCanvas);
+
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    mainPhoto.src = event.target.result;
+                    mainPhoto.classList.remove('hidden');
+                    grain.classList.remove('hidden');
+                    placeholderUi.classList.add('hidden');
+                    initCanvas();
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        let drawing = false;
+
+        function startDrawing(e) {
+            drawing = true;
+            draw(e);
+        }
+
+        function stopDrawing() {
+            drawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            
+            // Handle touch or mouse
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        
+        // Touch support
+        canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDrawing(e); });
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); });
+        canvas.addEventListener('touchend', stopDrawing);
+
+        document.getElementById('clearCanvas').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+
+</body>
+</html>
