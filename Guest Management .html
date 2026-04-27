@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Management - DiScrap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-handwriting { font-family: 'Dancing Script', cursive; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex h-screen">
+        <aside class="w-64 bg-white border-r border-sky-100 flex flex-col shadow-sm hidden md:flex">
+            <div class="p-6">
+                <h1 class="text-3xl font-handwriting text-sky-500">DiScrap</h1>
+            </div>
+            <nav class="flex-1 px-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 text-slate-500 hover:bg-sky-50 hover:text-sky-600 px-4 py-3 rounded-xl transition">
+                    <span>🏠</span> <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 text-slate-500 hover:bg-sky-50 hover:text-sky-600 px-4 py-3 rounded-xl transition">
+                    <span>🎨</span> <span class="font-medium">Scrapbook Editor</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 bg-sky-50 text-sky-600 px-4 py-3 rounded-xl transition">
+                    <span>👥</span> <span class="font-medium">Guest Management</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto">
+            <header class="bg-white/80 backdrop-blur-md border-b border-sky-100 p-6 sticky top-0 z-10 flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-700">Manajemen Tamu</h2>
+                    <p class="text-sm text-slate-400">Kelola siapa saja yang bisa mengisi kenangan.</p>
+                </div>
+                <button onclick="copyLink()" class="flex items-center space-x-2 bg-sky-500 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-sky-600 shadow-md shadow-sky-100 transition active:scale-95">
+                    <span>🔗</span>
+                    <span>Salin Link Kontribusi</span>
+                </button>
+            </header>
+
+            <div class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-3xl border border-sky-50 flex items-center justify-between">
+                        <div>
+                            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Total Kontributor</p>
+                            <h3 class="text-3xl font-semibold text-slate-700 mt-1">45 Orang</h3>
+                        </div>
+                        <div class="h-12 w-12 bg-sky-100 rounded-2xl flex items-center justify-center text-sky-500 text-xl">👤</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-sky-50 flex items-center justify-between">
+                        <div>
+                            <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Status Akses</p>
+                            <h3 class="text-3xl font-semibold text-slate-700 mt-1">Publik</h3>
+                        </div>
+                        <div class="flex items-center">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" checked class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-sky-500"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-sm border border-sky-50 overflow-hidden">
+                    <div class="p-6 border-b border-sky-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <h3 class="text-lg font-semibold text-slate-700">Daftar Kontributor</h3>
+                        <div class="relative">
+                            <input type="text" placeholder="Cari nama..." class="bg-slate-50 border border-sky-100 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-200 w-full md:w-64">
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-sky-50/50 text-sky-600 text-xs uppercase tracking-widest font-bold">
+                                    <th class="px-6 py-4">Nama</th>
+                                    <th class="px-6 py-4">Email / Kontak</th>
+                                    <th class="px-6 py-4">Jumlah Unggahan</th>
+                                    <th class="px-6 py-4">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-sky-50">
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 bg-sky-200 rounded-full flex items-center justify-center text-xs font-bold text-sky-700">AN</div>
+                                            <span class="font-medium text-slate-700">Andini Nurhaliza</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">andini.n@gmail.com</td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">12 Foto</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-red-400 hover:text-red-600 transition text-sm font-medium">Hapus</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-8 h-8 bg-sky-200 rounded-full flex items-center justify-center text-xs font-bold text-sky-700">BP</div>
+                                            <span class="font-medium text-slate-700">Bagus Pratama</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">bagus_p@sekolah.id</td>
+                                    <td class="px-6 py-4 text-sm text-slate-500">5 Foto, 1 Pesan</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-red-400 hover:text-red-600 transition text-sm font-medium">Hapus</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function copyLink() {
+            const dummyLink = "https://discrap.id/join/event-seru-2026";
+            navigator.clipboard.writeText(dummyLink);
+            alert("Link kontribusi telah disalin ke clipboard!");
+        }
+    </script>
+</body>
+</html>
