@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiScrap | Kenangan Digital Anda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== TYPOGRAPHY ==================== */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF;
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .font-handwriting {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* ==================== COMPONENTS ==================== */
+        .polaroid-card {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .polaroid-card:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .washi-tape {
+            width: 100px;
+            height: 30px;
+            background: rgba(135, 206, 235, 0.5);
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .sticky-note {
+            background: #e0f2fe;
+            box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.1);
+            transform: rotate(-1deg);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <h1 class="text-3xl font-handwriting font-bold text-sky-500">DiScrap.</h1>
+        <div class="hidden md:block space-x-8 text-sm font-medium">
+            <a href="#features" class="hover:text-sky-400 transition">Vibe</a>
+            <a href="#community" class="hover:text-sky-400 transition">Cerita</a>
+            <a href="index.html" class="bg-sky-400 text-white px-6 py-2 rounded-full shadow-lg hover:bg-sky-500 transition">Home</a>
+        </div>
+    </nav>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="relative py-16 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="z-10">
+                <h2 class="text-5xl md:text-6xl font-handwriting mb-6 leading-tight">
+                    Karena Kenangan Terlalu Berharga Jika <span class="text-sky-400">Hanya Disimpan</span> di Galeri.
+                </h2>
+                <p class="text-gray-500 mb-8 max-w-md">Ubah tumpukan foto digitalmu menjadi jurnal visual yang estetik dan terasa nyata.</p>
+                <a href="Settings.html" class="inline-block bg-sky-400 text-white font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-sky-200 hover:scale-105 transition-all">
+                    Mulai Buat Scrapbook
+                </a>
+            </div>
+
+            <!-- Polaroid Gallery -->
+            <div class="relative flex justify-center items-center h-96">
+                <div class="polaroid-card absolute -rotate-12 translate-x-[-40px]">
+                    <img src="https://images.unsplash.com/photo-1526285849717-482456cd733e?q=80&w=300&h=300&fit=crop" alt="Memory 1" class="w-48 h-48 object-cover">
+                </div>
+                <div class="polaroid-card absolute rotate-6 translate-x-[40px] translate-y-[20px]">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=300&h=300&fit=crop" alt="Memory 2" class="w-48 h-48 object-cover">
+                </div>
+                <div class="polaroid-card absolute rotate-2 -translate-y-[40px]">
+                    <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?q=80&w=300&h=300&fit=crop" alt="Memory 3" class="w-48 h-48 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES SECTION ==================== -->
+    <section id="features" class="py-20 bg-gray-50/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-handwriting italic text-sky-500">The Experience</h3>
+            </div>
+            
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Feature 1: Vibe Polaroid -->
+                <div class="relative bg-white p-10 border border-gray-100 shadow-sm">
+                    <div class="washi-tape"></div>
+                    <h4 class="text-2xl font-handwriting mb-4">Vibe Polaroid</h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        Setiap unggahan foto otomatis memiliki efek *flash* hangat dan bingkai putih ikonik yang memberikan kesan nostalgia seketika.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Desain Diary -->
+                <div class="relative bg-white p-10 border border-gray-100 shadow-sm">
+                    <div class="washi-tape" style="background: rgba(14, 165, 233, 0.3);"></div>
+                    <h4 class="text-2xl font-handwriting mb-4">Desain Diary</h4>
+                    <p class="text-gray-600 leading-relaxed">
+                        Tata letak bebas layaknya buku harian. Tambahkan coretan tangan digital dan stiker untuk mempercantik setiap momen.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMMUNITY SECTION ==================== -->
+    <section id="community" class="py-20 px-6 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h3 class="text-4xl font-handwriting text-center mb-16">Cerita Ini Milik Kita Bersama.</h3>
+            
+            <!-- Testimonials Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="sticky-note p-6 aspect-square flex flex-col justify-between">
+                    <p class="font-handwriting text-xl">"Terima kasih sudah membuat kenangan SMA-ku jadi lebih berwarna!"</p>
+                    <span class="text-xs font-bold text-sky-600">— Budi</span>
+                </div>
+                <div class="sticky-note p-6 aspect-square flex flex-col justify-between bg-sky-100 rotate-2">
+                    <p class="font-handwriting text-xl">"Fitur stikernya gemas sekali, rasanya seperti bikin buku beneran."</p>
+                    <span class="text-xs font-bold text-sky-600">— Citra</span>
+                </div>
+                <div class="sticky-note p-6 aspect-square flex flex-col justify-between -rotate-3">
+                    <p class="font-handwriting text-xl">"Foto kusam jadi kelihatan keren banget pake filter DiScrap!"</p>
+                    <span class="text-xs font-bold text-sky-600">— Andi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA SECTION ==================== -->
+    <section class="py-20 bg-sky-400 text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-6 flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+            <h3 class="text-3xl font-bold mb-4">Satu Kali Simpan, Akses Selamanya.</h3>
+            <p class="text-sky-50 opacity-90 mb-0">Kenanganmu tidak akan hilang oleh waktu. Kami menjaga setiap pixel cerita Anda tetap aman dalam penyimpanan cloud yang terenkripsi dan dapat diakses kapan saja.</p>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="py-10 text-center border-t border-gray-100">
+        <p class="text-sm text-gray-400">&copy; 2026 DiScrap. Dibuat dengan cinta untuk kenangan indah.</p>
+    </footer>
+
+</body>
+</html>
